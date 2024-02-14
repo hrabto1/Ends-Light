@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cfuqtdom8262x"]
+
+[node name="StartingLocation" type="Node2D"]
