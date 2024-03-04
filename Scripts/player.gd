@@ -20,23 +20,26 @@ func _physics_process(delta):
 	# Při chůzi vlevo
 	if (velocity.x==-speed):
 		animation.play("Walk")
-		flip_left()
+		flip("left")
 	#Při chůzi vpravo
 	if (velocity.x==speed):
 		animation.play("Walk")
-		flip_right()
+		flip("right")
 	move_and_slide()
 
 func torch_update():
 	torches += 1
 	$Label.text = "Torches: " + str(torches)
 
-func flip_left():
-	$Sprite.flip_h = true
-	$Hand.flip_h = true
-	$Item.offset = Vector2(-15,0)
-
-func flip_right():
-	$Sprite.flip_h = false
-	$Hand.flip_h = false
-	$Item.offset = Vector2(20,0)
+func flip(direction):
+	var side
+	var itemOffset
+	if(direction=="left"):
+		side = true
+		itemOffset = -15
+	else:
+		side = false
+		itemOffset = 20
+	$Sprite.flip_h = side
+	$Hand.flip_h = side
+	$Item.offset = Vector2(itemOffset,0)
