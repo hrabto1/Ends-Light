@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7ox7bgagqyb1"]
+
+[ext_resource type="PackedScene" uid="uid://bk0co0xjlakcg" path="res://Assets/Terrain/pillar.tscn" id="1_stg1m"]
+[ext_resource type="PackedScene" uid="uid://3c71gnk71tfr" path="res://Assets/Terrain/blackBlock.tscn" id="2_y6xrx"]
+[ext_resource type="PackedScene" uid="uid://cw0piebnrevaa" path="res://Assets/Items/torch.tscn" id="3_73kld"]
+
+[node name="Scene" type="Node2D"]
+
+[node name="Torch" parent="." instance=ExtResource("3_73kld")]
+position = Vector2(138, -1)
+rotation = 0.134148
+
+[node name="Pillar" parent="." instance=ExtResource("1_stg1m")]
+position = Vector2(156, -97)
+
+[node name="Block" parent="." instance=ExtResource("2_y6xrx")]
+position = Vector2(25.0001, 31)
+scale = Vector2(48.5938, 1)
+
+[node name="Torch2" parent="." instance=ExtResource("3_73kld")]
+position = Vector2(173, -1)
+rotation = -0.134463

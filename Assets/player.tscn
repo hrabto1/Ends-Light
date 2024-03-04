@@ -1,0 +1,165 @@
+[gd_scene load_steps=11 format=3 uid="uid://d3q57ele6ralk"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_us6nm"]
+[ext_resource type="Texture2D" uid="uid://ciaq5uf8k8gyh" path="res://Assets/Animations/Resource/character_animations.png" id="2_sesta"]
+[ext_resource type="Texture2D" uid="uid://c4f60ta1fopcc" path="res://Assets/Animations/Hand.png" id="3_ug2iv"]
+[ext_resource type="Texture2D" uid="uid://61hdv7fjnlxw" path="res://images/Items/torch.png" id="4_jsjop"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cv5nk"]
+radius = 20.0
+height = 132.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lj3w"]
+radius = 12.0
+height = 116.0
+
+[sub_resource type="Animation" id="Animation_wo4f2"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(4, -58), Vector2(4, -57), Vector2(4, -54), Vector2(4, -59)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Item:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(1, -98), Vector2(1, -97), Vector2(1, -93), Vector2(1, -97)]
+}
+
+[sub_resource type="Animation" id="Animation_vik8s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_j7omq"]
+resource_name = "Walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(4, -59), Vector2(4, -56), Vector2(5, -59), Vector2(4, -62), Vector2(4, -58), Vector2(5, -58)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Item:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -97), Vector2(0, -95), Vector2(1, -98), Vector2(1, -100), Vector2(0, -94), Vector2(1, -98)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tgl6u"]
+_data = {
+"Idle": SubResource("Animation_wo4f2"),
+"RESET": SubResource("Animation_vik8s"),
+"Walk": SubResource("Animation_j7omq")
+}
+
+[node name="Player" type="CharacterBody2D"]
+unique_name_in_owner = true
+position = Vector2(0, -12)
+script = ExtResource("1_us6nm")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(2, -67)
+shape = SubResource("CapsuleShape2D_cv5nk")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(2, -59)
+shape = SubResource("CapsuleShape2D_3lj3w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -573.0
+offset_top = -321.0
+offset_right = -533.0
+offset_bottom = -298.0
+text = "Torches: 0"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_tgl6u")
+}
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(3, -64)
+texture = ExtResource("2_sesta")
+hframes = 10
+
+[node name="Hand" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(4, -59)
+texture = ExtResource("3_ug2iv")
+
+[node name="Item" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -97)
+texture = ExtResource("4_jsjop")
+offset = Vector2(20, 0)
