@@ -11,10 +11,15 @@ position = Vector2(138, -1)
 rotation = 0.134148
 
 [node name="Pillar" parent="." instance=ExtResource("1_stg1m")]
+modulate = Color(0.266667, 0.266667, 0.266667, 1)
 position = Vector2(156, -97)
 
 [node name="Block" parent="." instance=ExtResource("2_y6xrx")]
 position = Vector2(25.0001, 31)
+scale = Vector2(48.5938, 1)
+
+[node name="Block2" parent="." instance=ExtResource("2_y6xrx")]
+position = Vector2(17, -223)
 scale = Vector2(48.5938, 1)
 
 [node name="Torch2" parent="." instance=ExtResource("3_73kld")]

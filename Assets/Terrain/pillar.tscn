@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://bk0co0xjlakcg"]
 
-[ext_resource type="Texture2D" uid="uid://cv8fnvidc0sv5" path="res://images/Terrain/block.png" id="1_fq5sw"]
+[ext_resource type="Texture2D" uid="uid://ouxjonq0pw8h" path="res://images/Terrain/pillar.png" id="1_vt4gg"]
 
 [node name="Pillar" type="Sprite2D"]
-position = Vector2(3.8147e-06, -97)
-scale = Vector2(0.15625, 3)
-texture = ExtResource("1_fq5sw")
+position = Vector2(0, -96)
+scale = Vector2(1, 1.5)
+texture = ExtResource("1_vt4gg")

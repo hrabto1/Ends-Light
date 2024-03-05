@@ -3,6 +3,8 @@ var speed = 300.0
 var jump_speed = -400.0
 var torches = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var burnout = 60.0
+@export var ItemSelected : int = 0
 @onready var animation = get_node("AnimationPlayer")
 
 func _physics_process(delta):
@@ -26,9 +28,10 @@ func _physics_process(delta):
 		animation.play("Walk")
 		flip("right")
 	move_and_slide()
+	torchBurning(delta)
 
-func torch_update():
-	torches += 1
+func torch_update(number):
+	torches += number
 	$Label.text = "Torches: " + str(torches)
 
 func flip(direction):
@@ -43,3 +46,9 @@ func flip(direction):
 	$Sprite.flip_h = side
 	$Hand.flip_h = side
 	$Item.offset = Vector2(itemOffset,0)
+
+func torchBurning(timing):
+	if(ItemSelected == 1):
+		var burning = get_node("BurnOfTorch")
+		burnout = burnout - 1 * timing
+		burning.value = burnout

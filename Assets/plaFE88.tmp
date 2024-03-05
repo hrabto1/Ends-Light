@@ -118,7 +118,6 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 unique_name_in_owner = true
-z_index = 1
 position = Vector2(0, -12)
 script = ExtResource("1_us6nm")
 
@@ -136,10 +135,10 @@ shape = SubResource("CapsuleShape2D_3lj3w")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-offset_left = 406.0
-offset_top = -317.0
-offset_right = 485.0
-offset_bottom = -294.0
+offset_left = 484.0
+offset_top = -235.0
+offset_right = 563.0
+offset_bottom = -212.0
 text = "Torches: 0"
 metadata/_edit_use_anchors_ = true
 
@@ -177,15 +176,5 @@ item_count = 2
 item_0/text = "Empty"
 item_1/text = "Torch"
 script = ExtResource("5_tg47p")
-
-[node name="BurnOfTorch" type="ProgressBar" parent="."]
-anchors_preset = -1
-offset_left = 407.0
-offset_top = -244.0
-offset_right = 570.0
-offset_bottom = -217.0
-max_value = 60.0
-step = 1.0
-show_percentage = false
 
 [connection signal="item_clicked" from="Inventory" to="Inventory" method="_on_item_clicked"]

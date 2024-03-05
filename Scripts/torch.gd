@@ -3,5 +3,5 @@ extends Area2D
 
 func _on_body_entered(body):
 	if(body.name == player.name):
-		player.torch_update()
+		player.torch_update(1)
 		queue_free()
