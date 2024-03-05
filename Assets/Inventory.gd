@@ -2,7 +2,7 @@ extends ItemList
 @onready var hand = get_node("../Hand")
 @onready var item = get_node("../Item")
 
-func _on_item_clicked(index, _at_position, _mouse_button_index):
+func _on_item_selected(index):
 	$"/root/Player".ItemSelected = index
 	if(index==0):
 		hand.visible = false

@@ -1,10 +1,10 @@
 extends CharacterBody2D
 var speed = 300.0
 var jump_speed = -400.0
-var torches = 0
+var torches = 1
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var burnout = 60.0
-@export var ItemSelected : int = 0
+var burnout = 0.0
+var ItemSelected : int = 0
 @onready var animation = get_node("AnimationPlayer")
 
 func _physics_process(delta):
@@ -28,7 +28,7 @@ func _physics_process(delta):
 		animation.play("Walk")
 		flip("right")
 	move_and_slide()
-	torchBurning(delta)
+	torchHandler(delta)
 
 func torch_update(number):
 	torches += number
@@ -47,8 +47,22 @@ func flip(direction):
 	$Hand.flip_h = side
 	$Item.offset = Vector2(itemOffset,0)
 
-func torchBurning(timing):
+func torchHandler(timing):
+	#povolení pochodní když jsou k dispozici
+	var Inventory = get_node("Inventory")
+	if(burnout > 0 || torches > 0):
+		Inventory.set_item_disabled(1,false)
+	elif(torches == 0 && burnout == 0):
+		Inventory.set_item_disabled(1,true)
+	#pochodeň hoří když je vytažená a je odebrána když poslední dohořela
 	if(ItemSelected == 1):
+		if(burnout==0):
+			torch_update(-1)
+			burnout=5
 		var burning = get_node("BurnOfTorch")
 		burnout = burnout - 1 * timing
 		burning.value = burnout
+		if(burnout<0):
+			Inventory.select(0)
+			Inventory._on_item_selected(0)
+			burnout = 0
