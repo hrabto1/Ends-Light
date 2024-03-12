@@ -1,9 +1,10 @@
 extends ItemList
-@onready var hand = get_node("../Hand")
-@onready var item = get_node("../Item")
 
 func _on_item_selected(index):
-	$"/root/Player".ItemSelected = index
+	var player = get_node("../../Player")
+	player.ItemSelected = index
+	var hand = get_node("../../Player/Hand")
+	var item = get_node("../../Player/Item")
 	if(index==0):
 		hand.visible = false
 		item.visible = false

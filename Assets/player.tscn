@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3q57ele6ralk"]
+[gd_scene load_steps=13 format=3 uid="uid://d3q57ele6ralk"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_us6nm"]
 [ext_resource type="Texture2D" uid="uid://ciaq5uf8k8gyh" path="res://Assets/Animations/Resource/character_animations.png" id="2_sesta"]
 [ext_resource type="Texture2D" uid="uid://c4f60ta1fopcc" path="res://Assets/Animations/Hand.png" id="3_ug2iv"]
 [ext_resource type="Texture2D" uid="uid://61hdv7fjnlxw" path="res://images/Items/torch.png" id="4_jsjop"]
-[ext_resource type="Script" path="res://Assets/Inventory.gd" id="5_tg47p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cv5nk"]
 radius = 20.0
@@ -116,6 +115,17 @@ _data = {
 "Walk": SubResource("Animation_j7omq")
 }
 
+[sub_resource type="Gradient" id="Gradient_nxfai"]
+offsets = PackedFloat32Array(0, 0.673846, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_68rlh"]
+gradient = SubResource("Gradient_nxfai")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Player" type="CharacterBody2D"]
 unique_name_in_owner = true
 z_index = 1
@@ -133,15 +143,6 @@ position = Vector2(2, -59)
 shape = SubResource("CapsuleShape2D_3lj3w")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Label" type="Label" parent="."]
-unique_name_in_owner = true
-offset_left = 406.0
-offset_top = -317.0
-offset_right = 485.0
-offset_bottom = -294.0
-text = "Torches: 1"
-metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -168,24 +169,13 @@ position = Vector2(1, -97)
 texture = ExtResource("4_jsjop")
 offset = Vector2(20, 0)
 
-[node name="Inventory" type="ItemList" parent="."]
-offset_left = 499.0
-offset_top = -316.0
-offset_right = 567.0
-offset_bottom = -252.0
-item_count = 2
-item_0/text = "Empty"
-item_1/text = "Torch"
-item_1/disabled = true
-script = ExtResource("5_tg47p")
-
-[node name="BurnOfTorch" type="ProgressBar" parent="."]
-offset_left = 407.0
-offset_top = -244.0
-offset_right = 570.0
-offset_bottom = -217.0
-max_value = 60.0
-step = 1.0
-show_percentage = false
-
-[connection signal="item_selected" from="Inventory" to="Inventory" method="_on_item_selected"]
+[node name="PointLight2D" type="PointLight2D" parent="Item"]
+position = Vector2(20, -16)
+color = Color(1, 1, 0.705882, 1)
+energy = 2.0
+range_z_min = -2
+range_z_max = 2
+range_layer_min = -1
+range_layer_max = 1
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_68rlh")
