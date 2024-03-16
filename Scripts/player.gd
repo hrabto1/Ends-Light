@@ -31,7 +31,7 @@ func _physics_process(delta):
 	torchHandler(delta)
 
 func torch_update(number):
-	var popis = get_node("../UI/NumberOfTorches")
+	var popis = get_node("/root/Scene/UI/NumberOfTorches")
 	torches += number
 	popis.text = "Torches: " + str(torches)
 
@@ -50,7 +50,7 @@ func flip(direction):
 
 func torchHandler(timing):
 	#povolení pochodní když jsou k dispozici
-	var Inventory = get_node("../UI/Inventory")
+	var Inventory = get_node("/root/Scene/UI/Inventory")
 	if(burnout > 0 || torches > 0):
 		Inventory.set_item_disabled(1,false)
 	elif(torches == 0 && burnout == 0):
@@ -60,7 +60,7 @@ func torchHandler(timing):
 		if(burnout==0):
 			torch_update(-1)
 			burnout=5
-		var burning = get_node("../UI/BurnOfTorch")
+		var burning = get_node("/root/Scene/UI/BurnOfTorch")
 		burnout = burnout - 1 * timing
 		burning.value = burnout
 		if(burnout<0):

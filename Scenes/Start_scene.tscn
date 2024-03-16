@@ -1,64 +1,103 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7ox7bgagqyb1"]
+[gd_scene load_steps=9 format=3 uid="uid://c7ox7bgagqyb1"]
 
 [ext_resource type="PackedScene" uid="uid://bk0co0xjlakcg" path="res://Assets/Terrain/pillar.tscn" id="1_stg1m"]
 [ext_resource type="PackedScene" uid="uid://3c71gnk71tfr" path="res://Assets/Terrain/blackBlock.tscn" id="2_y6xrx"]
 [ext_resource type="PackedScene" uid="uid://cw0piebnrevaa" path="res://Assets/Items/torch.tscn" id="3_73kld"]
 [ext_resource type="Script" path="res://Assets/Inventory.gd" id="4_v3jbk"]
+[ext_resource type="PackedScene" uid="uid://bcyum432aj5fe" path="res://Assets/Terrain/background.tscn" id="5_twuua"]
 [ext_resource type="PackedScene" uid="uid://d3q57ele6ralk" path="res://Assets/player.tscn" id="5_yljp3"]
+[ext_resource type="Script" path="res://Scripts/CameraController.gd" id="6_gdhtj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ce4sj"]
 font_color = Color(0, 1, 0, 1)
 
 [node name="Scene" type="Node2D"]
+position = Vector2(575, 321.635)
 
-[node name="Torch" parent="." instance=ExtResource("3_73kld")]
-position = Vector2(138, -1)
-rotation = 0.134148
+[node name="Player" parent="." instance=ExtResource("5_yljp3")]
 
-[node name="Pillar" parent="." instance=ExtResource("1_stg1m")]
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0.475037, 0.660034)
+process_callback = 0
+position_smoothing_speed = 100.0
+script = ExtResource("6_gdhtj")
+
+[node name="Terrain" type="Node2D" parent="."]
+position = Vector2(0.475037, 0.660034)
+
+[node name="Background" type="Node2D" parent="Terrain"]
+z_index = -1
+
+[node name="Pillar" parent="Terrain/Background" instance=ExtResource("1_stg1m")]
 modulate = Color(0.266667, 0.266667, 0.266667, 1)
 position = Vector2(156, -97)
 
-[node name="Block" parent="." instance=ExtResource("2_y6xrx")]
-position = Vector2(25.0001, 31)
-scale = Vector2(48.5938, 1)
+[node name="CanvasLayer" type="CanvasLayer" parent="Terrain/Background"]
+layer = -1
+offset = Vector2(-578.975, -330.16)
+transform = Transform2D(1, 0, 0, 1, -578.975, -330.16)
 
-[node name="Block2" parent="." instance=ExtResource("2_y6xrx")]
-position = Vector2(17, -223)
-scale = Vector2(48.5938, 1)
+[node name="Background" parent="Terrain/Background/CanvasLayer" instance=ExtResource("5_twuua")]
+show_behind_parent = true
+position = Vector2(569.975, 347.16)
+scale = Vector2(15, 30)
 
-[node name="Torch2" parent="." instance=ExtResource("3_73kld")]
-position = Vector2(173, -1)
-rotation = -0.134463
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Terrain"]
 blend_mode = 1
 range_z_min = -2
 range_z_max = 2
 
+[node name="Items" type="Node2D" parent="Terrain"]
+
+[node name="Torch" parent="Terrain/Items" instance=ExtResource("3_73kld")]
+position = Vector2(138, -1)
+rotation = 0.134148
+scale = Vector2(1, 1)
+
+[node name="Torch2" parent="Terrain/Items" instance=ExtResource("3_73kld")]
+position = Vector2(173, -1)
+rotation = -0.134463
+
+[node name="Level" type="Node2D" parent="Terrain"]
+
+[node name="Block" parent="Terrain/Level" instance=ExtResource("2_y6xrx")]
+position = Vector2(25.0001, 31)
+scale = Vector2(48.5938, 1)
+
+[node name="Block2" parent="Terrain/Level" instance=ExtResource("2_y6xrx")]
+position = Vector2(17, -223)
+scale = Vector2(48.5938, 1)
+
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 3
-follow_viewport_enabled = true
 
 [node name="NumberOfTorches" type="Label" parent="UI"]
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
-offset_left = 406.0
-offset_top = -317.0
-offset_right = 485.0
-offset_bottom = -294.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -187.525
+offset_top = 29.0
+offset_right = -108.525
+offset_bottom = 52.0
+grow_horizontal = 0
 text = "Torches: 1"
 label_settings = SubResource("LabelSettings_ce4sj")
+metadata/_edit_use_anchors_ = true
 
 [node name="Inventory" type="ItemList" parent="UI"]
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
-offset_left = 499.0
-offset_top = -316.0
-offset_right = 567.0
-offset_bottom = -252.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -94.5249
+offset_top = 30.0
+offset_right = -26.5249
+offset_bottom = 94.0
+grow_horizontal = 0
 tooltip_text = "Inventory"
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -71,19 +110,22 @@ item_0/text = "Empty"
 item_1/text = "Torch"
 item_1/disabled = true
 script = ExtResource("4_v3jbk")
+metadata/_edit_use_anchors_ = true
 
 [node name="BurnOfTorch" type="ProgressBar" parent="UI"]
 light_mask = 0
 visibility_layer = 2
-offset_left = 407.0
-offset_top = -244.0
-offset_right = 570.0
-offset_bottom = -217.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -192.0
+offset_top = 106.34
+offset_right = -29.0
+offset_bottom = 133.34
+grow_horizontal = 0
 max_value = 60.0
 step = 1.0
 show_percentage = false
-
-[node name="Player" parent="." instance=ExtResource("5_yljp3")]
-position = Vector2(29, -34)
+metadata/_edit_use_anchors_ = true
 
 [connection signal="item_selected" from="UI/Inventory" to="UI/Inventory" method="_on_item_selected"]
