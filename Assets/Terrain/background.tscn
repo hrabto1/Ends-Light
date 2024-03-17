@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcyum432aj5fe"]
 
-[ext_resource type="Texture2D" uid="uid://cpbq0a538pxb4" path="res://images/Terrain/background.png" id="1_nlh7i"]
+[ext_resource type="Texture2D" uid="uid://b443r8iqdkvue" path="res://images/Terrain/background.png" id="1_nlh7i"]
 
 [node name="Background" type="Sprite2D"]
-position = Vector2(693, 168)
+position = Vector2(0, -32)
 texture = ExtResource("1_nlh7i")

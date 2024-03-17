@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7ox7bgagqyb1"]
+[gd_scene load_steps=10 format=3 uid="uid://c7ox7bgagqyb1"]
 
 [ext_resource type="PackedScene" uid="uid://bk0co0xjlakcg" path="res://Assets/Terrain/pillar.tscn" id="1_stg1m"]
 [ext_resource type="PackedScene" uid="uid://3c71gnk71tfr" path="res://Assets/Terrain/blackBlock.tscn" id="2_y6xrx"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bcyum432aj5fe" path="res://Assets/Terrain/background.tscn" id="5_twuua"]
 [ext_resource type="PackedScene" uid="uid://d3q57ele6ralk" path="res://Assets/player.tscn" id="5_yljp3"]
 [ext_resource type="Script" path="res://Scripts/CameraController.gd" id="6_gdhtj"]
+[ext_resource type="PackedScene" uid="uid://ll7qsiekew8j" path="res://Assets/Terrain/lantern.tscn" id="8_w0fkc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ce4sj"]
 font_color = Color(0, 1, 0, 1)
@@ -25,38 +26,8 @@ script = ExtResource("6_gdhtj")
 [node name="Terrain" type="Node2D" parent="."]
 position = Vector2(0.475037, 0.660034)
 
-[node name="Background" type="Node2D" parent="Terrain"]
-z_index = -1
-
-[node name="Pillar" parent="Terrain/Background" instance=ExtResource("1_stg1m")]
-modulate = Color(0.266667, 0.266667, 0.266667, 1)
-position = Vector2(156, -97)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Terrain/Background"]
-layer = -1
-offset = Vector2(-578.975, -330.16)
-transform = Transform2D(1, 0, 0, 1, -578.975, -330.16)
-
-[node name="Background" parent="Terrain/Background/CanvasLayer" instance=ExtResource("5_twuua")]
-show_behind_parent = true
-position = Vector2(569.975, 347.16)
-scale = Vector2(15, 30)
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Terrain"]
-blend_mode = 1
-range_z_min = -2
-range_z_max = 2
-
-[node name="Items" type="Node2D" parent="Terrain"]
-
-[node name="Torch" parent="Terrain/Items" instance=ExtResource("3_73kld")]
-position = Vector2(138, -1)
-rotation = 0.134148
-scale = Vector2(1, 1)
-
-[node name="Torch2" parent="Terrain/Items" instance=ExtResource("3_73kld")]
-position = Vector2(173, -1)
-rotation = -0.134463
+[node name="Foreground" type="Node2D" parent="Terrain"]
+z_index = 10
 
 [node name="Level" type="Node2D" parent="Terrain"]
 
@@ -64,9 +35,46 @@ rotation = -0.134463
 position = Vector2(25.0001, 31)
 scale = Vector2(48.5938, 1)
 
-[node name="Block2" parent="Terrain/Level" instance=ExtResource("2_y6xrx")]
-position = Vector2(17, -223)
+[node name="Block" parent="Terrain/Level/Block" instance=ExtResource("2_y6xrx")]
+position = Vector2(25.0001, -272)
 scale = Vector2(48.5938, 1)
+
+[node name="Lantern" parent="Terrain/Level" instance=ExtResource("8_w0fkc")]
+z_index = 0
+position = Vector2(-78.475, -88.295)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Terrain"]
+blend_mode = 1
+
+[node name="Items" type="Node2D" parent="Terrain"]
+
+[node name="Torch" parent="Terrain/Items" instance=ExtResource("3_73kld")]
+position = Vector2(138, -1)
+rotation = 0.134148
+
+[node name="Torch2" parent="Terrain/Items" instance=ExtResource("3_73kld")]
+position = Vector2(173, -1)
+rotation = -0.134463
+
+[node name="Background" type="Node2D" parent="Terrain"]
+
+[node name="Pillar" parent="Terrain/Background" instance=ExtResource("1_stg1m")]
+modulate = Color(0.266667, 0.266667, 0.266667, 1)
+z_index = -9
+position = Vector2(-1.47504, -217.295)
+offset = Vector2(157.475, 80.1967)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Terrain/Background"]
+layer = -1
+offset = Vector2(-578.975, -330.16)
+transform = Transform2D(1, 0, 0, 1, -578.975, -330.16)
+
+[node name="Background" parent="Terrain/Background/CanvasLayer" instance=ExtResource("5_twuua")]
+position = Vector2(1159.74, 580.648)
+scale = Vector2(100, 100)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Terrain/Background/CanvasLayer"]
+color = Color(0, 0, 0, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

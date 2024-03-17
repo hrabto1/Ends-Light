@@ -128,7 +128,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
 unique_name_in_owner = true
-z_index = 1
 position = Vector2(0, -12)
 script = ExtResource("1_us6nm")
 
@@ -171,9 +170,6 @@ offset = Vector2(20, 0)
 position = Vector2(20, -16)
 color = Color(1, 1, 0.705882, 1)
 energy = 2.0
-range_z_min = -2
-range_z_max = 2
 range_layer_min = -1
-range_layer_max = 1
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_68rlh")
