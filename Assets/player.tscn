@@ -166,7 +166,8 @@ position = Vector2(1, -98)
 texture = ExtResource("4_jsjop")
 offset = Vector2(20, 0)
 
-[node name="PointLight2D" type="PointLight2D" parent="Item"]
+[node name="Torchlight" type="PointLight2D" parent="Item"]
+visible = false
 position = Vector2(20, -16)
 color = Color(1, 1, 0.705882, 1)
 energy = 2.0

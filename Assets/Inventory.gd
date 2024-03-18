@@ -8,6 +8,8 @@ func _on_item_selected(index):
 	if(index==0):
 		hand.visible = false
 		item.visible = false
+		item.get_child(0).visible = false
 	else:
 		hand.visible = true
 		item.visible = true
+		item.get_child(0).visible = true

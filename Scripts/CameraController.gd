@@ -1,6 +1,5 @@
 extends Camera2D
 @onready var player = get_node("/root/Scene/Player")
-@onready var background = get_node("/root/Scene/Background/Background")
 @onready var camera = get_node("/root/Scene/Camera")
 @onready var UI = get_node("/root/Scene/UI")
 

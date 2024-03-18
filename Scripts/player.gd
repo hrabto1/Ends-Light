@@ -2,6 +2,7 @@ extends CharacterBody2D
 var speed = 300.0
 var jump_speed = -400.0
 var torches = 1
+var ropes = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var burnout = 0.0
 var ItemSelected : int = 0
@@ -16,6 +17,13 @@ func _physics_process(delta):
 	#Pohyb
 	var direction = Input.get_axis("ui_left", "ui_right")
 	velocity.x = direction * speed
+	#otevření inventáře
+	if Input.is_action_just_pressed("ui_inventory"):
+		var inv = get_node("/root/Scene/UI/Inventory")
+		if(inv.visible == true):
+			inv.visible = false
+		else:
+			inv.visible = true
 	# Při idle
 	if(velocity.x==0):
 		animation.play("Idle")
@@ -31,9 +39,9 @@ func _physics_process(delta):
 	torchHandler(delta)
 
 func torch_update(number):
-	var popis = get_node("/root/Scene/UI/NumberOfTorches")
+	var popis = get_node("/root/Scene/UI/Inventory")
 	torches += number
-	popis.text = "Torches: " + str(torches)
+	popis.set_item_text(1,"Torches (" + str(torches) + ")")
 
 func flip(direction):
 	var side
@@ -47,6 +55,7 @@ func flip(direction):
 	$Sprite.flip_h = side
 	$Hand.flip_h = side
 	$Item.offset = Vector2(itemOffset,0)
+	$Item.get_child(0).offset = Vector2(itemOffset,0)
 
 func torchHandler(timing):
 	#povolení pochodní když jsou k dispozici
@@ -59,7 +68,7 @@ func torchHandler(timing):
 	if(ItemSelected == 1):
 		if(burnout==0):
 			torch_update(-1)
-			burnout=5
+			burnout=3
 		var burning = get_node("/root/Scene/UI/BurnOfTorch")
 		burnout = burnout - 1 * timing
 		burning.value = burnout
